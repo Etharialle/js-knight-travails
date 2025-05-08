@@ -1,0 +1,23 @@
+{
+  "name": "js-knight-travails",
+  "version": "0.0.1",
+  "description": "Find the shortest path for a knight on a chess board to move from a selected start to a selected end position.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Etharialle/js-knight-travails.git"
+  },
+  "author": "Etharialle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Etharialle/js-knight-travails/issues"
+  },
+  "homepage": "https://github.com/Etharialle/js-knight-travails#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0"
+  }
+}
