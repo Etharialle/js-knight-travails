@@ -18,8 +18,38 @@ function generateLegalMoves(currentPosition) {
     return legalMoves
 }
 
-const currentPosition = [0,0];
+function addMovesToQueue(currentPosition, legalMoves, cost) {
+    for (let i = 0; i < legalMoves.length; i++) {
+        let newQueueItem = [currentPosition, legalMoves[i], cost];
+        graphQueue.push([currentPosition,legalMoves[i],cost]);
+    }
+}
 
-console.log(generateLegalMoves(currentPosition))
+function addPathToMatrix(graphQueue) {
+    while (graphQueue.length > 0) {
+        if (!(graphQueue[0][1] in Object.keys(adjacencyMatrix))) {
+            let newKey = graphQueue.shift();
+            adjacencyMatrix[newKey[1]] = [newKey[0], newKey[2]];
+        }
+        console.log(graphQueue);
+    }
+    
+}
+
+let graphQueue = []; // parent, next, cost
+let cost = 1;
+const currentPosition = [0,0];
+const targetPositionn = [3,3];
+let pathArray = [currentPosition];
+let costArray = [0];
+let adjacencyMatrix = {};
+
+
+let legalMoves = generateLegalMoves(currentPosition);
+console.log(legalMoves);
+addMovesToQueue(currentPosition, legalMoves, cost);
+console.log(graphQueue);
+addPathToMatrix(graphQueue);
+console.log(adjacencyMatrix);
 
 module.exports = sumNumbers;
