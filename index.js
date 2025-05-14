@@ -1,15 +1,7 @@
-function sumNumbers(num1, num2) {
-    return num1 + num2;
-}
-
 function generateLegalMoves(currentPosition) {
     const legalMoves = [];
     const moveList = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]];
     for (let i = 0; i < moveList.length; i++) {
-        //let x = currentPosition[0];
-        //let newX = moveList[i][0];
-        //const newRow = currentPosition[0] + moveList[i][0];
-        //const newColumn = currentPosition[1] + moveList[i][1];
         let newPosition = [currentPosition[0]+moveList[i][0], currentPosition[1]+moveList[i][1]];
         if (newPosition.every(element => element < 7) && newPosition.every(element => element > 0)) {
             legalMoves.push(newPosition);
@@ -53,13 +45,13 @@ let pathArray = [currentPosition];
 let costArray = [0];
 let adjacencyMatrix = {};
 
-
-let legalMoves = generateLegalMoves(currentPosition);
-console.log(legalMoves);
-addMovesToQueue(currentPosition, legalMoves, cost);
-console.log(graphQueue);
-addPathToMatrix(graphQueue, targetPosition);
-console.log(adjacencyMatrix);
+// 
+// let legalMoves = generateLegalMoves(currentPosition);
+// console.log(legalMoves);
+// addMovesToQueue(currentPosition, legalMoves, cost);
+// console.log(graphQueue);
+// addPathToMatrix(graphQueue, targetPosition);
+// console.log(adjacencyMatrix);
 
 // create array of positions from final to start
 function getShortestPath(adjacencyMatrix, targetPosition, currentPosition) {
@@ -79,4 +71,28 @@ console.log(shortestPathReversed)
 shortestPathReversed.forEach(element => {
     console.log(element);
 });
-module.exports = sumNumbers;
+
+function isPositionValid(position) {
+    if ((position[0] >= 0 && position[0] < 8) && (position[1] >= 0 && position[1] < 8)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function knightMoves(startingPosition, targetPosition) {
+    // check for valid start and end positions
+    
+    if (!isPositionValid(startingPosition)) {
+        console.log("Starting Position is not valid");
+        return 1;
+    }
+    if (!isPositionValid(endingPosition)) {
+        console.log("Ending Position is not valid");
+        return 2;
+    }
+
+
+}
+
+module.exports = { isPositionValid, knightMoves };
