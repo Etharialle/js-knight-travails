@@ -10,21 +10,21 @@ function generateLegalMoves(currentPosition) {
     return legalMoves
 }
 
-function addMovesToQueue(currentPosition, legalMoves, cost) {
+function addMovesToQueue(currentPosition, legalMoves, cost, graphQueue) {
     for (let j = 0; j < legalMoves.length; j++) {
         let newQueueItem = [currentPosition, legalMoves[j], cost];
         graphQueue.push([currentPosition,legalMoves[j],cost]);
     }
 }
 
-function addPathToMatrix(graphQueue, targetPosition) {
+function addPathToMatrix(graphQueue, targetPosition, adjacencyMatrix) {
     while (graphQueue.length > 0 && !(targetPosition.toString() in adjacencyMatrix)) {
         if (!(graphQueue[0][1] in Object.keys(adjacencyMatrix))) {
             let newKey = graphQueue.shift();
             adjacencyMatrix[newKey[1].toString()] = [newKey[0], newKey[2]];
             let newLegalMoves = generateLegalMoves(newKey[1]);
             let newCost = newKey[2] + 1;
-            addMovesToQueue(newKey[1], newLegalMoves,newCost)
+            addMovesToQueue(newKey[1], newLegalMoves, newCost, graphQueue)
         }
 
     }    
@@ -36,20 +36,11 @@ function getShortestPath(adjacencyMatrix, targetPosition, currentPosition) {
     while (pointer != currentPosition) {
         shortestPath.push(pointer);
         pointer = adjacencyMatrix[pointer.toString()][0];
-        // console.log(pointer);
     }
     shortestPath.push(currentPosition);
     shortestPath.reverse();
     return shortestPath;
 }
-
-//let shortestPath = [];
-//getShortestPath(adjacencyMatrix, targetPosition, currentPosition);
-//const shortestPathReversed = shortestPath.reverse();
-//console.log(shortestPathReversed)
-//shortestPathReversed.forEach(element => {
-//    console.log(element);
-//});
 
 function isPositionValid(position) {
     if ((position[0] >= 0 && position[0] < 8) && (position[1] >= 0 && position[1] < 8)) {
@@ -59,12 +50,10 @@ function isPositionValid(position) {
     }
 }
 
-let graphQueue = []; // parent, next, cost
-let adjacencyMatrix = {};
-
 function knightMoves(startingPosition, targetPosition) {
     // check for valid start and end positions
-    
+    let graphQueue = []; // parent, next, cost
+    let adjacencyMatrix = {};
     if (!isPositionValid(startingPosition)) {
         console.log("Starting Position is not valid");
         return 1;
@@ -77,13 +66,11 @@ function knightMoves(startingPosition, targetPosition) {
         console.log("Ending position cannot be the same as the starting position");
         return 3;
     }
-    
 
     let firstMoves = generateLegalMoves(startingPosition);
     
-    addMovesToQueue(startingPosition, firstMoves, 1);
-    
-    addPathToMatrix(graphQueue, targetPosition); // Breadth First Search
+    addMovesToQueue(startingPosition, firstMoves, 1, graphQueue);  
+    addPathToMatrix(graphQueue, targetPosition, adjacencyMatrix); // Breadth First Search
 
     const pathArray = getShortestPath(adjacencyMatrix, targetPosition, startingPosition);
     const finalCost = adjacencyMatrix[targetPosition.toString()][1];
