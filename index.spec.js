@@ -21,8 +21,17 @@ describe('Check for valid positions', function () {
   });
 });
 
-describe('Check for valid starting and ending positions in knightMoves', function () {
+describe('knightMoves exit code checks', function () {
+  test('Check if function executed successfully', function () {
+    expect(knightMoves([0,0],[3,3])).toEqual(0);
+  });
   test('Check if starting position is invalid', function () {
     expect(knightMoves([0,-5],[3,3])).toEqual(1);
+  });
+  test('Check if ending position is invalid', function () {
+    expect(knightMoves([0,0],[3,-3])).toEqual(2);
+  });
+  test('Check if ending position is equal to starting position', function () {
+    expect(knightMoves([1,1],[1,1])).toEqual(3);
   });
 });

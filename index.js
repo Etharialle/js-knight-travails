@@ -18,11 +18,7 @@ function addMovesToQueue(currentPosition, legalMoves, cost) {
 }
 
 function addPathToMatrix(graphQueue, targetPosition) {
-    let k = 0;
     while (graphQueue.length > 0 && !(targetPosition.toString() in adjacencyMatrix)) {
-        console.log(Object.keys(adjacencyMatrix));
-        console.log(targetPosition);
-        console.log(targetPosition.toString());
         if (!(graphQueue[0][1] in Object.keys(adjacencyMatrix))) {
             let newKey = graphQueue.shift();
             adjacencyMatrix[newKey[1].toString()] = [newKey[0], newKey[2]];
@@ -30,47 +26,30 @@ function addPathToMatrix(graphQueue, targetPosition) {
             let newCost = newKey[2] + 1;
             addMovesToQueue(newKey[1], newLegalMoves,newCost)
         }
-        console.log(graphQueue);
-        console.log(adjacencyMatrix);
-        k++;
-    }
-    
+
+    }    
 }
 
-let graphQueue = []; // parent, next, cost
-let cost = 1;
-const currentPosition = [0,0];
-const targetPosition = [3,3];
-let pathArray = [currentPosition];
-let costArray = [0];
-let adjacencyMatrix = {};
-
-// 
-// let legalMoves = generateLegalMoves(currentPosition);
-// console.log(legalMoves);
-// addMovesToQueue(currentPosition, legalMoves, cost);
-// console.log(graphQueue);
-// addPathToMatrix(graphQueue, targetPosition);
-// console.log(adjacencyMatrix);
-
-// create array of positions from final to start
 function getShortestPath(adjacencyMatrix, targetPosition, currentPosition) {
+    let shortestPath = [];
     let pointer = targetPosition;
     while (pointer != currentPosition) {
         shortestPath.push(pointer);
         pointer = adjacencyMatrix[pointer.toString()][0];
-        console.log(pointer);
+        // console.log(pointer);
     }
     shortestPath.push(currentPosition);
+    shortestPath.reverse();
+    return shortestPath;
 }
 
-let shortestPath = [];
-getShortestPath(adjacencyMatrix, targetPosition, currentPosition);
-const shortestPathReversed = shortestPath.reverse();
-console.log(shortestPathReversed)
-shortestPathReversed.forEach(element => {
-    console.log(element);
-});
+//let shortestPath = [];
+//getShortestPath(adjacencyMatrix, targetPosition, currentPosition);
+//const shortestPathReversed = shortestPath.reverse();
+//console.log(shortestPathReversed)
+//shortestPathReversed.forEach(element => {
+//    console.log(element);
+//});
 
 function isPositionValid(position) {
     if ((position[0] >= 0 && position[0] < 8) && (position[1] >= 0 && position[1] < 8)) {
@@ -80,6 +59,9 @@ function isPositionValid(position) {
     }
 }
 
+let graphQueue = []; // parent, next, cost
+let adjacencyMatrix = {};
+
 function knightMoves(startingPosition, targetPosition) {
     // check for valid start and end positions
     
@@ -87,12 +69,36 @@ function knightMoves(startingPosition, targetPosition) {
         console.log("Starting Position is not valid");
         return 1;
     }
-    if (!isPositionValid(endingPosition)) {
+    if (!isPositionValid(targetPosition)) {
         console.log("Ending Position is not valid");
         return 2;
     }
+    if ((startingPosition.length === targetPosition.length) && startingPosition.every((value, index) => value === targetPosition[index])) {
+        console.log("Ending position cannot be the same as the starting position");
+        return 3;
+    }
+    
 
+    let firstMoves = generateLegalMoves(startingPosition);
+    
+    addMovesToQueue(startingPosition, firstMoves, 1);
+    
+    addPathToMatrix(graphQueue, targetPosition); // Breadth First Search
 
+    const pathArray = getShortestPath(adjacencyMatrix, targetPosition, startingPosition);
+    const finalCost = adjacencyMatrix[targetPosition.toString()][1];
+    console.log(graphQueue);
+    console.log(adjacencyMatrix);
+    
+    console.log(`=> You made it in ${finalCost} moves! Here's your path:`)
+
+    pathArray.forEach(element => {
+        console.log(element);
+    });
+
+    return 0;
 }
+
+knightMoves([3,3],[4,3]);
 
 module.exports = { isPositionValid, knightMoves };
