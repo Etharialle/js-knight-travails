@@ -3,7 +3,7 @@ function generateLegalMoves(currentPosition) {
     const moveList = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]];
     for (let i = 0; i < moveList.length; i++) {
         let newPosition = [currentPosition[0]+moveList[i][0], currentPosition[1]+moveList[i][1]];
-        if (newPosition.every(element => element < 7) && newPosition.every(element => element > 0)) {
+        if (newPosition.every(element => element <= 7) && newPosition.every(element => element >= 0)) {
             legalMoves.push(newPosition);
         }
     }
@@ -19,9 +19,11 @@ function addMovesToQueue(currentPosition, legalMoves, cost, graphQueue) {
 
 function addPathToMatrix(graphQueue, targetPosition, adjacencyMatrix) {
     while (graphQueue.length > 0 && !(targetPosition.toString() in adjacencyMatrix)) {
-        if (!(graphQueue[0][1] in Object.keys(adjacencyMatrix))) {
-            let newKey = graphQueue.shift();
-            adjacencyMatrix[newKey[1].toString()] = [newKey[0], newKey[2]];
+        let newKey = graphQueue.shift();
+        if (!Object.keys(adjacencyMatrix).includes(JSON.stringify(newKey[1]))) {
+            let testNewKey = JSON.stringify(newKey[1]);
+            //adjacencyMatrix[newKey[1].toString()] = [newKey[0], newKey[2]];
+            adjacencyMatrix[JSON.stringify(newKey[1])] = [newKey[0], newKey[2]];
             let newLegalMoves = generateLegalMoves(newKey[1]);
             let newCost = newKey[2] + 1;
             addMovesToQueue(newKey[1], newLegalMoves, newCost, graphQueue)
@@ -35,7 +37,8 @@ function getShortestPath(adjacencyMatrix, targetPosition, currentPosition) {
     let pointer = targetPosition;
     while (pointer != currentPosition) {
         shortestPath.push(pointer);
-        pointer = adjacencyMatrix[pointer.toString()][0];
+        //pointer = adjacencyMatrix[pointer.toString()][0];
+        pointer = adjacencyMatrix[JSON.stringify(pointer)][0];
     }
     shortestPath.push(currentPosition);
     shortestPath.reverse();
@@ -73,7 +76,8 @@ function knightMoves(startingPosition, targetPosition) {
     addPathToMatrix(graphQueue, targetPosition, adjacencyMatrix); // Breadth First Search
 
     const pathArray = getShortestPath(adjacencyMatrix, targetPosition, startingPosition);
-    const finalCost = adjacencyMatrix[targetPosition.toString()][1];
+    //const finalCost = adjacencyMatrix[targetPosition.toString()][1];
+    const finalCost = adjacencyMatrix[JSON.stringify(targetPosition)][1];
     console.log(graphQueue);
     console.log(adjacencyMatrix);
     
@@ -86,6 +90,6 @@ function knightMoves(startingPosition, targetPosition) {
     return 0;
 }
 
-knightMoves([3,3],[4,3]);
+knightMoves([0,0],[7,7]);
 
 module.exports = { isPositionValid, knightMoves };
