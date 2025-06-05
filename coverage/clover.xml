@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1749128251081" clover="3.2.0">
-  <project timestamp="1749128251081" name="All files">
-    <metrics statements="53" coveredstatements="53" conditionals="22" coveredconditionals="22" methods="10" coveredmethods="10" elements="85" coveredelements="85" complexity="0" loc="53" ncloc="53" packages="1" files="1" classes="1"/>
+<coverage generated="1749128418701" clover="3.2.0">
+  <project timestamp="1749128418701" name="All files">
+    <metrics statements="54" coveredstatements="53" conditionals="22" coveredconditionals="22" methods="11" coveredmethods="10" elements="87" coveredelements="85" complexity="0" loc="54" ncloc="54" packages="1" files="1" classes="1"/>
     <file name="index.js" path="/home/etharialle/github/js-knight-travails/index.js">
-      <metrics statements="53" coveredstatements="53" conditionals="22" coveredconditionals="22" methods="10" coveredmethods="10"/>
+      <metrics statements="54" coveredstatements="53" conditionals="22" coveredconditionals="22" methods="11" coveredmethods="10"/>
       <line num="2" count="130" type="stmt"/>
       <line num="3" count="130" type="stmt"/>
       <line num="4" count="130" type="stmt"/>
@@ -56,7 +56,8 @@
       <line num="87" count="10" type="stmt"/>
       <line num="90" count="2" type="stmt"/>
       <line num="93" count="1" type="stmt"/>
-      <line num="95" count="1" type="stmt"/>
+      <line num="96" count="0" type="stmt"/>
+      <line num="99" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>

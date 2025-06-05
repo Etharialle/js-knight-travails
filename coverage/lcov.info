@@ -10,7 +10,8 @@ FN:48,isPositionValid
 FN:56,knightMoves
 FN:68,(anonymous_8)
 FN:86,(anonymous_9)
-FNF:10
+FN:95,sum
+FNF:11
 FNH:10
 FNDA:130,generateLegalMoves
 FNDA:1984,(anonymous_1)
@@ -22,6 +23,7 @@ FNDA:15,isPositionValid
 FNDA:5,knightMoves
 FNDA:4,(anonymous_8)
 FNDA:10,(anonymous_9)
+FNDA:0,sum
 DA:2,130
 DA:3,130
 DA:4,130
@@ -74,8 +76,9 @@ DA:86,2
 DA:87,10
 DA:90,2
 DA:93,1
-DA:95,1
-LF:53
+DA:96,0
+DA:99,1
+LF:54
 LH:53
 BRDA:6,0,0,676
 BRDA:6,0,1,364

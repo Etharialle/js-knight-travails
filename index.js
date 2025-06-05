@@ -92,4 +92,8 @@ function knightMoves(startingPosition, targetPosition) {
 
 knightMoves([0,0],[7,7]);
 
+function sum(a, b) {
+  return a + b;
+}
+
 module.exports = { isPositionValid, knightMoves };
