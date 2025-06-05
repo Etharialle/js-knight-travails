@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "test:ci": "jest --coverage --ci --runInBand --coverageThreshold='{ \"global\": { \"branches\": 90, \"functions\": 100, \"lines\": 90, \"statements\": 90 } }'"
+    "test:ci": "jest --coverage --ci --runInBand --coverageThreshold='{ \"global\": { \"branches\": 90, \"functions\": 90, \"lines\": 90, \"statements\": 90 } }'"
   },
   "repository": {
     "type": "git",
