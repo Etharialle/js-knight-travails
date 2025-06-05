@@ -1,6 +1,6 @@
 name: Run Jest Tests with Coverage
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   test:
@@ -26,7 +26,8 @@ jobs:
           name: coverage-report
           path: coverage/
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          slug: Etharialle/js-knight-travails
