@@ -31,3 +31,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: Etharialle/js-knight-travails
+          files: coverage/lcov.info
+          flags: unittests
+          name: codecov-coverage-report
